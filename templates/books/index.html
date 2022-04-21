@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for book in all_books %}
+
+<div class="book">
+
+  <div class="content">
+  
+
+      <div class="description">
+        <a href="/books/{{book.title}}"> {{ book.title}}</a>  <!-- making the title text a link. This link is to the template 'show.html' -->
+        <br>
+        <span class="release_year"> Author: {{ book.author.name }}</span>
+        <br>
+        <span class="release_year"> Published in {{ book.release_year }}</span>
+
+
+      </div>
+
+<!-- the follwoing is going to remove both the tick and the cross, and just leave the graphic that represents the icon as to whether the task is completed or not -->
+<!-- the icon is contained in the IF statement -->
+
+       <div class="buttons">
+          <form class="delete-form" action="/books/{{book.id}}/delete" method="POST"> 
+          <button class="trash-button"><i class="fa fa-trash-o fa-3x" style="color:red" aria-hidden="true"></i></button> 
+          </form>
+      </div> 
+
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
