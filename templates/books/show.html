@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <p> <b>{{ book.title }} </b></p>
+    <hr>
+    <p> {{ book.author.name }} </p>
+    <p> {{ book.release_year }}</p>
+    <p><a href="/books/{{ book.id }}/edit">Edit</a></p> <!-- this hyperlink takes me to the html template 'edit.html' to start editing the selected task -->
+</div>
+    
+{% endblock content %}

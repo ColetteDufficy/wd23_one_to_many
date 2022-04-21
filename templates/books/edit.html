@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="/books/{{ book.id }}" method="post">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="{{ book.title }}" required autofocus>
+            <!-- 'value' is pre-populating the field with the name of the task that i want to edit -->
+<!-- 'label' required for screenreaders -->
+<!-- 'label' HAS to have a 'for' value -->
+<!--  'id' correlates with the 'label for' name -->
+<!-- 'name' - connects the input to the database with the same 'naming convetion' -->
+<!-- 'required' means the field cannot be left empty -->
+<!-- 'autofocus' means the cursor will start here -->
+        </div>
+
+        <div>
+            <label for="release_year">Published in</label>
+            <input type="number" name="release_year" id="release_year" value="{{ book.release_year}}" required>
+        </div>
+
+        <div>
+
+            <div>
+                <label for="author">Author</label>
+                <select name="author_id" id="author">
+                    {% for author in all_authors  %}
+                        <option value="{{ author.id }}" 
+                            {% if author.id == book.author.id %}
+                                selected = "selected"
+                            {% endif %}>{{author.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Update Book</button>
+        
+        </div>
+
+
+    </form>
+
+
+{% endblock content %}

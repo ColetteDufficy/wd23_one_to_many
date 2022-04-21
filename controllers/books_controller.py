@@ -52,6 +52,44 @@ def create_book():
 
 
 
+# SHOW
+# GET '/books/<id>'
+@books_blueprint.route("/books/<id>", methods=['GET'])
+def show_book(id):
+    book = book_repository.select(id)
+    return render_template("books/show.html", book = book)
+
+
+
+
+
+# EDIT (EDIT and UPDATE are combined)
+# Step 1:
+# GET '/books/<id>/edit'
+@books_blueprint.route("/books/<id>/edit", methods=["GET"])
+def edit_book(id):
+    book = book_repository.select(id) #singular book, becasue we only want to identify ONE book, by its id number
+    authors = author_repository.select_all() # authors is plural cos we want ALL authors
+    return render_template("books/edit.html", book = book, all_authors = authors)
+
+
+
+# UPDATE
+# PUT '/books/<id>'show.html
+@books_blueprint.route("/books/<id>", methods=['POST'])
+def update_book(id):
+    title = request.form['title']
+    release_year = request.form['release_year']
+    author_id = request.form['author_id']
+    
+    author = author_repository.select(author_id) 
+    book = Book(title, release_year, author, id) 
+    book_repository.update(book)
+    return redirect('/books')
+
+
+
+
 
 
 # DELETE
