@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="/books" method="post">
+    <div>
+      <label for="title">Description:</label>
+      <input type="text" id="tilte" name="title" placeholder="Title" required autofocus>
+    </div>
+<!-- 'label' required for screenreaders -->
+<!-- 'label' HAS to have a 'for' value -->
+<!--  'id' correlates with the 'label for' name . these must be the same! -->
+<!-- 'name' - connects the input to the database with the same 'naming' -->
+<!-- placeholder is just the text that appears inthe inout field -->
+<!-- 'required' means the field cannot be left empty -->
+<!-- 'autofocus' means the cursortr will start here -->
+  
+    <div>
+      <label for="release_year">Published:</label>
+      <input type="number" id="release_year" name="release_year" placeholder="Year first Published" required>
+    </div>
+  
+    
+  
+    <div>
+      <label for="author">Author:</label>
+      <select id="author" name="author_id"> <!-- *******'select' tag introduces a drop down menu****** -->
+        {% for author in all_authors  %}
+        <option value="{{ author.id }}">
+            <!-- 'option value' is the 'langauge/answer' speaking to the database -->
+            {{ author.name }}</option>
+            <!-- whats between the 'option' tags is whats displayed on screen to the user -->
+    
+        {% endfor %}
+    </select>
+    </div>
+  
+    <button type="submit">Add Book</button>
+  
+  </form>
+    
+{% endblock content %}

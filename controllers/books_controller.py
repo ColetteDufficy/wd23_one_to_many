@@ -25,6 +25,34 @@ def books():
 
 
 
+# NEW (NEW and CREATE are combined, because we need to create but we also need to post it back to the DB
+# this is the first step. See CREATE for the second step)
+# GET '/books/new'
+#get a form to fill
+@books_blueprint.route("/books/new", methods={'GET'})
+def new_book():
+    authors = author_repository.select_all()
+    return render_template("/books/new.html", all_authors=authors)
+
+    
+    
+# CREATE
+# POST '/books'
+# post the form to fill the database
+@books_blueprint.route("/books", methods=['POST'])
+def create_book():
+    title = request.form['title']
+    release_year = request.form['release_year']
+    author_id = request.form['author_id']
+    
+    author = author_repository.select(author_id) # this line is accessing the DB to find the exact author, by using the id number. The Author variable needs to be defined first, before the python objevt is created. 
+    book = Book(title, release_year, author) #this line is creating the object in python
+    book_repository.save(book)
+    return redirect('/books')
+
+
+
+
 
 # DELETE
 # DELETE '/books/<id>/delete'
